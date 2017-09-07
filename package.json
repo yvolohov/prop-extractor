@@ -1,0 +1,29 @@
+{
+  "name": "prop-extractor",
+  "version": "1.0.0",
+  "description": "Get values from complicated data structures, nested arrays and objects, using request string like 'foo.[].bar.[].baz'.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node examples.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yvolohov/prop-extractor.git"
+  },
+  "keywords": [
+    "nested",
+    "property",
+    "properties",
+    "object",
+    "array",
+    "deep",
+    "get",
+    "has"
+  ],
+  "author": "Yaroslav Volohov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yvolohov/prop-extractor/issues"
+  },
+  "homepage": "https://github.com/yvolohov/prop-extractor#readme"
+}
