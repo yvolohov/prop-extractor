@@ -1,4 +1,23 @@
-#### 1. Getting Extractor instance
+## Contents  
+1. [Creating Extractor instance and test data](#p1)
+2. [Getting single values](#p2)
+2.1. [... if path exists](#p2_1)
+2.2. [... if path doesn't exist](#p2_2)
+2.3. [... with checking of path existence](#p2_3)
+3. [Getting arrays of values](#p3)
+3.1. [... if path exists](#p3_1)
+3.2. [... if path doesn't exist](#p3_2)
+3.3. [... with checking of path existence](#p3_3)
+4. [More examples](#p4)
+4.1. [Getting of array elements](#p4_1)
+4.2. [Getting a defined property of array elements (objects)](#p4_2)
+4.3. [Getting a defined property of array elements (objects) that are deeply nested](#p4_3)
+5. [Using filters](#p5)
+5.1. [Getting names of countries with population bigger than 300 millions](#p5_1)
+5.2. [Getting names of cities where name starts with ‘S’](#p5_2)
+5.3. [Getting cities with population bigger than 20 millions in countries with population bigger than 1 billion](#p5_3)
+
+<a name="p1"><h4>1. Creating Extractor instance and test data</h4></a>
 
 ```js
 const Extractor = require('prop-extractor');
@@ -49,29 +68,26 @@ let data = {
 
 ```
 
-#### 2. Getting single values
+<a name="p2"><h4>2. Getting single values</h4></a>
 
-###### 2.1.
+<a name="p2_1"><h6>2.1. ... if path exists</h6></a>
 ```js
-// if path exists
 extractor.setPath('data.count');
 console.log(extractor.extractFrom(data).get());
 
 // 4
 ```
 
-###### 2.2.
+<a name="p2_2"><h6>2.2. ... if path doesn't exist</h6></a>
 ```js
-// if path doesn't exist
 extractor.setPath('data.foo.bar.baz');
 console.log(extractor.extractFrom(data).get());
 
 // undefined
 ```
 
-###### 2.3.
+<a name="p2_3"><h6>2.3. ... with checking of path existence</h6></a>
 ```js
-// checking of path existence
 extractor.setPath('data.count');
 let response = extractor.extractFrom(data);
 
@@ -82,29 +98,26 @@ if (response.has()) {
 // 4
 ```
 
-#### 3. Getting arrays of values
+<a name="p3"><h4>3. Getting arrays of values</h4></a>
 
-###### 3.1.
+<a name="p3_1"><h6>3.1.  ... if path exists</h6></a>
 ```js
-// if path exists
 extractor.setPath('data.country_codes.[]');
 console.log(extractor.extractFrom(data).get());
 
 // ['AU', 'BR', 'CN', 'US']
 ```
 
-###### 3.2.
+<a name="p3_2"><h6>3.2. ... if path doesn't exist</h6></a>
 ```js
-// if path doesn't exist
 extractor.setPath('data.foo.[].bar');
 console.log(extractor.extractFrom(data).get());
 
 // []
 ```
 
-###### 3.3.
+<a name="p3_3"><h6>3.3. ... with checking of path existence</h6></a>
 ```js
-// checking of path existence
 extractor.setPath('data.country_codes.[]');
 response = extractor.extractFrom(data);
 
@@ -115,9 +128,9 @@ if (response.has()) {
 // ['AU', 'BR', 'CN', 'US']
 ```
 
-#### 4. More examples
+<a name="p4"><h4>4. More examples</h4><a>
 
-###### 4.1.
+<a name="p4_1"><h6>4.1. Getting of array elements</h6></a>
 ```js
 extractor.setPath('data.countries.[]');
 console.log(extractor.extractFrom(data).get());
@@ -128,7 +141,7 @@ console.log(extractor.extractFrom(data).get());
 // { name: 'United States', population: 326474013, cities: [ ... ] } ]
 ```
 
-###### 4.2.
+<a name="p4_2"><h6>4.2. Getting a defined property of array elements (objects)</h6></a>
 ```js
 extractor.setPath('data.countries.[].name');
 console.log(extractor.extractFrom(data).get());
@@ -136,7 +149,7 @@ console.log(extractor.extractFrom(data).get());
 // [ 'Australia', 'Brazil', 'China', 'United States' ]
 ```
 
-###### 4.3.
+<a name="p4_3"><h6>4.3. Getting a defined property of array elements (objects) that are deeply nested</h6></a>
 ```js
 extractor.setPath('data.countries.[].cities.[].name');
 console.log(extractor.extractFrom(data).get());
@@ -146,11 +159,10 @@ console.log(extractor.extractFrom(data).get());
 // 'Guangzhou', 'New York', 'Los Angeles', 'Chicago' ]
 ```
 
-#### 5. Using filters
+<a name="p5"><h4>5. Using filters</h4></a>
 
-###### 5.1.
+<a name="p5_1"><h6>5.1. Getting names of countries with population bigger than 300 millions</h6></a>
 ```js
-// getting names of countries with population bigger than 300 millions
 extractor.setPath('data.countries.[population].name');
 extractor.removeAllFilters();
 extractor.setFilter('population', (item) => {
@@ -161,9 +173,8 @@ console.log(extractor.extractFrom(data).get());
 // [ 'China', 'United States' ]
 ```
 
-###### 5.2.
+<a name="p5_2"><h6>5.2. Getting names of cities where name starts with 'S'</h6></a>
 ```js
-// getting names of cities where name starts with 'S'
 extractor.setPath('data.countries.[].cities.[city_name].name');
 extractor.removeAllFilters();
 extractor.setFilter('city_name', (item) => {
@@ -174,10 +185,8 @@ console.log(extractor.extractFrom(data).get());
 // [ 'Sydney', 'São Paulo', 'Salvador', 'Shanghai' ]
 ```
 
-###### 5.3.
+<a name="p5_3"><h6>5.3. Getting cities with population bigger than 20 millions in countries with population bigger than 1 billion</h6></a>
 ```js
-// getting cities with population bigger than 20 millions
-// in countries with population bigger than 1 billion
 extractor.setPath('data.countries.[country_population].cities.[city_population]');
 extractor.removeAllFilters();
 extractor.setFilter('country_population', (item) => {
