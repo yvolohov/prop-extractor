@@ -1,6 +1,6 @@
 {
   "name": "prop-extractor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Get values from complicated data structures, nested arrays and objects, using request string like 'foo.[].bar.[].baz'.",
   "main": "index.js",
   "scripts": {
